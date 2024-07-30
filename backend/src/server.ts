@@ -4,6 +4,7 @@ import { createServer } from 'http';
 import { config } from 'dotenv';
 import { connectToDatabase } from './utility/dbConnection';
 import { sendMail } from './utility/sendmail';
+import { sendNotification } from './utility/sendNotification';
 import { sendSms } from './utility/sendsms';
 import cors from 'cors';
 // --------------------- Routes Imports-------------------------------------------
@@ -29,10 +30,10 @@ const io = new Server(server);
 
 app.get('/', (_, res: Response) => {
     // sendMail();
-    sendSms();
+    // sendSms();
+    // sendNotification(); 
     return res.status(200).json("Welcome To BookMyFlight");
 });
-
 server.listen(PORT, () => {
     connectToDatabase();
     console.log(`Server is running on port ${PORT} http://localhost:${PORT}`);
