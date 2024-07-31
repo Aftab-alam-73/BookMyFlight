@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import FlightForm from './FlightForm';
 import FlightCard from './FlightCard';
+import ShowAllFlights from './ShowAllFlights';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -55,7 +56,8 @@ export default function TabsPanlen() {
         <FlightForm/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-      <FlightCard/>
+      {/* <FlightCard/> */}
+      <ShowAllFlights/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Item Three

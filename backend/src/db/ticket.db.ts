@@ -8,11 +8,12 @@ export class TicketDatabaseConnector implements ITicketDatabaseConnector{
         const newTicket=await ticketModel.create(payload);
         return newTicket;
     }
-    async findMany(): Promise<ITicket[]> {
+    async findMany(id:string): Promise<ITicket[]> {
         const tickets=await ticketModel.aggregate([
             {
                 $match: {
-                  isDeleted: false
+                  isDeleted: false,
+                  flightId:new mongoose.Types.ObjectId(id)
                 }
               },
             {
@@ -57,6 +58,7 @@ export class TicketDatabaseConnector implements ITicketDatabaseConnector{
                 },
                 flight: {
                   _id: '$flightDetails._id',
+                  status:'$flightDetails.status',
                   flight_number: '$flightDetails.flight_number',
                   airline: '$flightDetails.airline',
                   departure_gate: '$flightDetails.departure_gate',

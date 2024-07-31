@@ -15,7 +15,7 @@ type SingUpType={
 
 const authSlice=apiSlice.injectEndpoints({
     endpoints:(builder)=>({
-      SignMe:builder.mutation({
+      SignInMe:builder.mutation({
         query:(payload:SinginType)=>({
             url:`${SIGN_IN}`,
             method: 'POST',
@@ -34,4 +34,4 @@ const authSlice=apiSlice.injectEndpoints({
     })
 })
 
-export const {useSignMeMutation,useSignUpMutation}=authSlice;
+export const {useSignInMeMutation,useSignUpMutation}=authSlice;

@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Link from 'next/link'
+import { addUser } from "@/redux/userSlice";
+import { useDispatch } from "react-redux";
 
 import { Button } from "@/components/ui/button"
 import { Card,CardContent,CardTitle,CardDescription,CardHeader, CardFooter } from "@/components/ui/card"
@@ -16,6 +18,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { useSignInMeMutation } from "@/redux/authSlice"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   email:z.string().email(),
@@ -23,6 +27,9 @@ const formSchema = z.object({
 })
 
 export function SignInPage() {
+     const Dispatch=useDispatch();
+     const [SignInMe]=useSignInMeMutation();
+     const router=useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -30,7 +37,13 @@ export function SignInPage() {
           password: "",
         }});
 function onSubmit(values: z.infer<typeof formSchema>) {
-            console.log(values)
+            SignInMe(values).then((result)=>{
+              console.log("SingIn result: ",result);
+              Dispatch(addUser(result.data.data));
+              router.push("/")
+            }).catch((error)=>{
+              console.log(error);
+            })
          }
   return (
     <main className="min-h-screen flex items-center justify-center">
@@ -70,7 +83,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
             </FormItem>
           )}
         />
-        <Button type="submit">SingIn</Button>
+        <Button type="submit" className="bg-blue-800 hover:bg-blue-900 p-5 rounded text-white">SingIn</Button>
       </form>
     </Form>
     </CardContent>

@@ -2,7 +2,7 @@ import { ticketDto } from "../dtos/ticket.dto";
 import mongoose,{ Document } from "mongoose";
 export interface ITicketDatabaseConnector{
     create(payload:ticketDto):Promise<ITicket>;
-    findMany():Promise<ITicket[]>;
+    findMany(id:string):Promise<ITicket[]>;
     findOne(id:string):Promise<ITicket>
     delete(id:string):Promise<ITicket>;
     

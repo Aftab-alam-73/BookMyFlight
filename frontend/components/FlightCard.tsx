@@ -9,28 +9,28 @@ import {
 import HeaderLogo from "./HeaderLogo";
 import EditDialog from "./EditDialog";
 
-const FlightCard = () => {
+const FlightCard = ({flight}:any) => {
   return (
     <Card className="">
       <CardHeader>
-        <CardDescription>IndiGo</CardDescription>
+        <CardDescription>{flight.airline}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex gap-5">
           <Image src={"/indiGo_logo.png"} width={60} height={30} alt="logo" />
           <span className="shadow-inner bg-slate-200 p-2 rounded">
-            Fligh Number: A35
+            Fligh Number: {flight.flight_number}
           </span>
           <span className="shadow-inner bg-slate-200 p-2 rounded">
-            Status: On Time
+            Status: {flight.status}
           </span>
           <span className="shadow-inner bg-slate-200 p-2 rounded">
-            Departure Gate: A26
+            Departure Gate: {flight.departure_gate}
           </span>
           <span className="shadow-inner bg-slate-200 p-2 rounded">
-            Arrival Gate: AB26
+            Arrival Gate: {flight.arrival_gate}
           </span>
-          <EditDialog />
+          <EditDialog id={flight._id}/>
         </div>
       </CardContent>
     </Card>

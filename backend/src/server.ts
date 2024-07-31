@@ -26,7 +26,7 @@ app.use('/api/flight', flightRoutes);
 app.use('/api/ticket', ticketRoutes);
 
 const server = createServer(app);
-const io = new Server(server);
+export const io = new Server(server);
 
 app.get('/', (_, res: Response) => {
     // sendMail();

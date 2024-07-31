@@ -1,7 +1,7 @@
 import { Request,Response } from "express";
 import { flightService } from "../services/flight.services";
 import { matchedData,validationResult } from "express-validator";
-import { IFlight } from "../interfaces/flight.interface";
+import { flightQuery, IFlight } from "../interfaces/flight.interface";
 import { flightUpdateDto } from "../dtos/flight.dto";
 class FlightController {
  
@@ -21,8 +21,10 @@ class FlightController {
      }
     }
     async getAllFlight(req:Request,res:Response):Promise<any>{
+        const query=req.query as flightQuery;
+       
         try{
-           const response=await flightService.findAllFlights();
+           const response=await flightService.findAllFlights(query);
            return res.status(200).json({status:true,response:response});
         }catch(err:any){
             return res.status(500).json({status:false,error:err.message}); 
@@ -42,6 +44,7 @@ class FlightController {
             return res.status(400).json({status:false,error:result.array()})
         }
         const payload=matchedData(req) as flightUpdateDto;
+       
         try{
             const response=await flightService.updateSingleFlight(req.params.id,payload)
             return res.status(200).json({status:true,data:response});

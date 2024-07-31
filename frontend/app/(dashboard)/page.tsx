@@ -3,8 +3,16 @@ import Image from "next/image";
 import { messaging } from "@/firebase";
 import {getToken} from 'firebase/messaging'
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+    const router=useRouter();
+   const data=useSelector((state:any)=>state.user);
+   if(data.id==""){
+   return router.push("/signin");
+   }
+  
   useEffect(()=>{
     async function generateToken(){
     const res= await Notification.requestPermission()
@@ -22,7 +30,7 @@ export default function Home() {
      console.log("default permission")
     }
    }
-    generateToken();
+    // generateToken();
    },[])
   return (
     <main className="min-h-screen">

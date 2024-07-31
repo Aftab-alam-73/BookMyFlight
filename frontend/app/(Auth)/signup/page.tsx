@@ -4,9 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { useToast } from "@/components/ui/use-toast"
-
+import { useRouter } from "next/navigation" 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import toast from "react-hot-toast"
 import { Card,CardContent,CardTitle,CardFooter,CardDescription,CardHeader } from "@/components/ui/card"
 import {
   Form,
@@ -28,8 +29,8 @@ const formSchema = z.object({
 })
 
 export function SignUp() {
-    const {toast}=useToast();
-    const [SignUp,{data,isSuccess,isError,error}]=useSignUpMutation();
+    const router=useRouter();
+    const [SignUp]=useSignUpMutation();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -40,10 +41,11 @@ export function SignUp() {
         function onSubmit(values: z.infer<typeof formSchema>) {
           console.log(values)
                SignUp(values).then((result) => {
-                toast({description:"Signup Successfull"})
+                toast("Sing up successfull")
+                router.push("/signin")
                 console.log("result: " ,result);
                }).catch((error) => {
-                toast({description:"Something went wrong"})
+               
                 console.log(error);
                })
              
@@ -104,7 +106,7 @@ export function SignUp() {
     </Form>
     </CardContent>
     <CardFooter>
-        Do you have account?<Link href="/login">signIn</Link> 
+        Do you have account?<Link href="/signin">signIn</Link> 
     </CardFooter>
     </Card>
     </main>

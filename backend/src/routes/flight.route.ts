@@ -31,7 +31,7 @@ router
   .put(
     "/:id",
     validateToken,
-    checkPermission(["admin"]),
+    checkPermission(["admin","user"]),
     flightUpdateDataValidator,
     flightController.updateFlight
   )

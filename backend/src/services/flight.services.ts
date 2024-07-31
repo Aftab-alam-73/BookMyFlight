@@ -1,6 +1,6 @@
 import { FlightDatabaseConnector } from "../db/flight.db";
 import { flightUpdateDto } from "../dtos/flight.dto";
-import { IFlight } from "../interfaces/flight.interface";
+import { flightQuery, IFlight } from "../interfaces/flight.interface";
 
  class FlightService{
   
@@ -13,7 +13,7 @@ import { IFlight } from "../interfaces/flight.interface";
         const response=await this.flightRepo.create(payload);
         return response;
     }
-    async findAllFlights(payload?:any):Promise<IFlight[]>{
+    async findAllFlights(payload?:flightQuery):Promise<IFlight[]>{
         const response=await this.flightRepo.findMany(payload);
         return response;
     }

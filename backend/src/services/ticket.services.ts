@@ -10,8 +10,8 @@ class TicketService {
         const response=await this.ticketRepo.create(payload);
         return response;
     }
-    async findAllTickets():Promise<any[]>{
-        const response=await this.ticketRepo.findMany();
+    async findAllTickets(id?:string):Promise<any[]>{
+        const response=await this.ticketRepo.findMany(id!);
         return response;
     }
     async findSingleTicket(id:string):Promise<any>{

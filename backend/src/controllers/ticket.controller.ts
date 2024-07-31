@@ -22,7 +22,7 @@ class TicketController {
     }
     async getAllTickets(req:Request,res:Response):Promise<any>{
         try{
-            const response=await ticketService.findAllTickets();
+            const response=await ticketService.findAllTickets(req.query.id as string);
             return res.status(200).json({status:true,data:response});
 
         }catch(err:any){

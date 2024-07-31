@@ -63,7 +63,7 @@ const flightSchema=new Schema<IFlight>({
         default:0
     },
     stops:{
-        type:[String],
+        type:String,
         required:true,
         default:null
     },

@@ -17,13 +17,10 @@ export const flightDataValidator=[
  body("from").trim().notEmpty().withMessage("From should not be empty").isString(),
  body("to").trim().notEmpty().withMessage("To should not be empty").isString(),
  body("distance").notEmpty().isNumeric().withMessage("Distance should be a number"),
- body("stops").notEmpty().isArray().optional()
+ body("stops").notEmpty().isString().optional()
 ]
 export const flightUpdateDataValidator=[
  body("status").trim().notEmpty().withMessage("status should not be empty").isString().isLength({min:5, max:10}).withMessage("status should have  5 to 10 characters"),
  body("departure_gate").trim().notEmpty().withMessage("Departure gate should not be empty").isString(),
- body("arrival_gate").trim().notEmpty().withMessage("Arrival gate should not be empty").isString(),
- body("scheduled_departure").trim().notEmpty().withMessage("scheduled departure should not be empty").isISO8601().withMessage('Departure time must be a valid ISO 8601 date format'),
- body("scheduled_arrival").trim().notEmpty().withMessage("scheduled arrival should not be empty").isISO8601().withMessage('Arrival time must be a valid ISO 8601 date format'),
- 
+ body("scheduled_departure").trim().notEmpty().withMessage("scheduled departure should not be empty").isISO8601().withMessage('Departure time must be a valid ISO 8601 date format').optional(),
 ]

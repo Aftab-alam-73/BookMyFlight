@@ -20,6 +20,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form"
+import { flightSearchType, useGetAllFlightsQuery } from "@/redux/flightSlice";
+import { useState } from "react";
+import FlightCard from "@/components/FlightCard";
 
 const formSchema = z.object({
   from:z.string().min(3,{message:"From must have atleast 3 characters"}),
@@ -27,6 +30,13 @@ const formSchema = z.object({
   scheduled_departure:z.date()
 })
 const BookFlight = () => {
+  const [flighsSearch,setFlightSearch]=useState<flightSearchType>({
+    to:"",
+    from:"",
+  });
+
+  const {data,isError,isSuccess,isFetching}=useGetAllFlightsQuery(flighsSearch)
+  if(isSuccess)console.log("booking",data)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,7 +45,7 @@ const BookFlight = () => {
       scheduled_departure:new Date(),
     }});
 function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+        setFlightSearch(values)
      }
   return (
    <main className="space-y-16">
@@ -113,6 +123,13 @@ function onSubmit(values: z.infer<typeof formSchema>) {
         <Button type="submit" className="border border-solid border-e-inherit w-[280px] py-6 bg-blue-600 hover:bg-blue-700">Search Flights</Button>
       </form>
     </Form>
+    </section>
+    <section>
+      {
+        isSuccess && data.response.map((flight:any)=>{
+          return <FlightCard flight={flight} key={flight}/>
+        })
+      }
     </section>
    </main>
   )

@@ -23,6 +23,13 @@ export interface IFlight extends Document{
     from:string;
     to:string;
     distance:number;
-    stops:string[]
+    stops:string
     isDeleted:boolean;
+}
+export interface flightQuery{
+    id?:string;
+    from?:string;
+    to?:string;
+    date?:string;
+    flightNumber?:string;
 }

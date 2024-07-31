@@ -7,12 +7,16 @@ const userSlice=createSlice({
      id:"",
      name:"",
      profile:"",
+     role:"",
+     accessToken:"",
    },
    reducers:{
-     addUser:(state,payload:any)=>{
-         state.id=payload.id;
-         state.name=payload.name;
-         state.profile=payload.profile;
+     addUser:(state,actions)=>{
+         state.id=actions.payload.user._id;
+         state.name=actions.payload.user.name;
+         state.profile=actions.payload.user.profile;
+         state.role=actions.payload.user.role;
+         state.accessToken=actions.payload.accessToken;
      }
    }
 })
